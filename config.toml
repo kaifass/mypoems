@@ -1,4 +1,9 @@
 baseURL = "http://example.org/"
 languageCode = "en-us"
 title = "Everyone's Poet"
-theme = "osprey"
+theme = "ananke"
+summaryLength = 0
+
+
+[blackfriday]
+  extensions = ["hardLineBreak"]
