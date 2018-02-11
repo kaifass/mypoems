@@ -25,7 +25,6 @@ jobs:
           name: "Test Website"
           command: htmlproofer src/public --allow-hash-href --check-html --empty-alt-ignore --disable-external
       - persist_to_workspace:
-          root: src
           paths:
             - public
 
