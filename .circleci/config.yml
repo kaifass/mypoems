@@ -35,4 +35,4 @@ jobs:
     steps:
       - attach_workspace:
           at: src
-      - run: aws s3 sync ./public s3://kai.sabenfass.com/ --delete
+      - run: aws s3 sync project/src/public s3://kai.sabenfass.com/ --delete
