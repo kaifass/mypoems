@@ -8,7 +8,7 @@ workflows:
             - build
           filters:
             branches:
-              only: addcircleci
+              only: master
 
 
 version: 2
