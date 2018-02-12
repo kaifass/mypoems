@@ -3,12 +3,12 @@ workflows:
   main:
     jobs:
       - build
-      # - deploy:
-      #     requires:
-      #       - build
-      #     filters:
-      #       branches:
-      #         only: master
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: addcircleci
 
 
 version: 2
@@ -35,3 +35,4 @@ jobs:
     steps:
       - attach_workspace:
           at: src
+      - run: echo $AWS_ACCESS_KEY_ID
