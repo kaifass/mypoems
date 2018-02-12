@@ -1,0 +1,41 @@
+workflows:
+  version: 2
+  main:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+
+
+version: 2
+jobs:
+  build:
+    docker:
+      - image: cibuilds/hugo:0.34
+    steps:
+      - checkout
+      - run: 
+          name: "Get submodules to refresh themes"
+          command: git submodule update --init --recursive
+      - run:
+          name: "Build site with hugo"
+          command: HUGO_ENV=production hugo -v -s .
+      - run:
+          name: "Run HTML Proofer to check for good html and such"
+          command: htmlproofer src/public --allow-hash-href --check-html --empty-alt-ignore --disable-external
+      - persist_to_workspace:
+          root: .
+          paths:
+            - public
+
+  deploy:
+    docker:
+      - image: garland/aws-cli-docker
+    steps:
+      - attach_workspace:
+          at: src
+      - run: aws s3 sync /root/project/src/public s3://kai.sabenfass.com/ --delete
