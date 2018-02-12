@@ -31,8 +31,8 @@ jobs:
 
   deploy:
     docker:
-      - image: cibuilds/hugo:0.34
+      - image: garland/aws-cli-docker
     steps:
       - attach_workspace:
           at: src
-      - run: echo $AWS_ACCESS_KEY_ID
+      - run: aws s3 sync ./public s3://kai.sabenfass.com/ --delete
