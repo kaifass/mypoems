@@ -18,11 +18,14 @@ jobs:
       - image: cibuilds/hugo:0.34
     steps:
       - checkout
+      - run: 
+          name: "Get submodules to refresh themes"
+          command: git submodule update --init --recursive
       - run:
-          name: "Build Website With  Hugo"
+          name: "Build site with hugo"
           command: HUGO_ENV=production hugo -v -s .
       - run:
-          name: "Test Website"
+          name: "Run HTML Proofer to check for good html and such"
           command: htmlproofer src/public --allow-hash-href --check-html --empty-alt-ignore --disable-external
       - persist_to_workspace:
           root: .
